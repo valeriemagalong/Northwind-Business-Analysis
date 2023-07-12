@@ -1,0 +1,20 @@
+AUDIENCE
+• Director of Sales at Northwind
+    - company exports specialty foods worldwide
+        - 91 customers (e.g. specialty food stores, markets)
+        - sells to 21 unique countries
+• Company has been in business since July 2012
+• It's currently May 2014, so Northwind has been in business for 22 months
+
+GOALS / QUESTIONS
+• How has our company been performing across 7 quarters?
+• How can we maximize profit across customers and locations?
+    - In what quarter did the company make the most revenue?
+    - What locations have the highest revenue?
+
+KPIS
+• Revenue (quantity * unit price * 1-discount)
+
+TIME SCALE
+• Yearly report (July 2012 - June 2013, July 2013 - May 2014)
+• Quarterly report (across 21 months, i.e. seven 3-month quarters)
