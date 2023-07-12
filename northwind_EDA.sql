@@ -1,5 +1,29 @@
 /*
  * 
+ * EDA - Company History
+ * 
+ * */
+
+-- When was the company's first order?
+	-- July 4, 1996
+SELECT order_date FROM orders
+ORDER BY order_date
+LIMIT 1;
+
+-- When was the company's last order?
+	-- May 6, 1998
+SELECT order_date FROM orders
+ORDER BY order_date DESC
+LIMIT 1;
+
+-- How many non-stakeholder employees do we have?
+	-- 9 employees
+SELECT COUNT(employee_id) AS total_employees
+FROM employees;
+
+
+/*
+ * 
  * EDA - Customers
  * 
  * */
@@ -53,3 +77,4 @@ FROM categories c
 JOIN products p ON c.category_id = p.category_id
 GROUP BY c.category_name
 ORDER BY total_products;
+
