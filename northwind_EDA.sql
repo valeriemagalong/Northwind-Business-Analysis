@@ -1,3 +1,9 @@
+/*
+ * 
+ * EDA - Customers
+ * 
+ * */
+
 -- How many customers do we have?
 	-- 91 customers
 SELECT COUNT(customer_id) AS total_customers
@@ -28,3 +34,22 @@ SELECT *,
 	AS total_cust_per_continent
 FROM customer_locations
 ORDER BY total_cust_per_continent, country;
+
+
+/*
+ * 
+ * EDA - Products
+ * 
+ * */
+
+-- How many unique products do we sell?
+	-- 77 products
+SELECT COUNT(product_id) AS total_products
+FROM products;
+
+-- How many unique products fall into each product category?
+SELECT c.category_name, COUNT(p.product_id) AS total_products
+FROM categories c
+JOIN products p ON c.category_id = p.category_id
+GROUP BY c.category_name
+ORDER BY total_products;
