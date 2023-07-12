@@ -1,30 +1,35 @@
 AUDIENCE
 • Sales team (including Director of Sales) at Northwind
+
+COMPANY INFO
 • Company has been in business since July 1996
 • It's currently May 1998, so Northwind has been in business for 22 months
 • Company exports specialty foods worldwide
     - 91 customers (e.g. specialty food stores, markets)
     - sells to 3 continents, 21 unique countries (most customers in Europe)
     - 77 unique specialty food products
+    - 830 total orders placed since company start
 
 GOALS / QUESTIONS
-(1) Growth
+(1) Growth & Retention
     • How has our customer base grown over the quarters?
+        - Are their customers who have discontinued business?
 (2) Profit
     • How has our company been performing across 7 quarters?
     • How can we maximize profit across customers and locations?
-        - In what quarter did the company make the most revenue?
-        - What locations have the highest revenue?
-        - What product categories are the most lucrative?
+        - In what quarter did the company make the most profit?
+        - What locations yield the highest profit? (Most valuable customers?)
+        - What product categories yield the highest profit?
 (3) Efficiency
     • How is our inventory management?
         - Is the rate at which we reorder products aligned with demand?
+    • Are there items that we haven't been able to ship?
 
 KPIS
 (1) New Customer Acquisition Rate
     • (# new cust acquired by end of qtr / total # cust. at start of qtr) * 100
 (2) Revenue (quantity * unit price * 1-discount); Product Demand
-(3) Average Lead Time (required date - order date) vs. Reorder Level
+(3) Lead Time (shipped date - order date) vs. Reorder Level
 
 TIME SCALE
 • Yearly report (July 1996 - June 1997, July 1997 - May 1998)
