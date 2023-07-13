@@ -138,11 +138,7 @@ SELECT o.order_id, CAST(EXTRACT(YEAR FROM o.order_date) AS VARCHAR(255)) AS orde
 	od.quantity, od.discount,
 	od.unit_price * od.quantity * (1 - od.discount) AS revenue,
 	p.product_cost, o.freight AS shipping_cost,
-	CASE 
-		WHEN od.unit_price = p.unit_price
-		THEN (od.unit_price * (1 - od.discount) - p.product_cost) * od.quantity
-		ELSE NULL
-	END AS gross_profit,
+	(od.unit_price * (1 - od.discount) - p.product_cost) * od.quantity AS gross_profit,
 	p.reorder_level, cat.category_name, cat.description
 FROM customers c
 JOIN orders o ON c.customer_id = o.customer_id
@@ -150,24 +146,24 @@ JOIN shippers s ON o.ship_via = s.shipper_id
 JOIN order_details od ON o.order_id = od.order_id
 JOIN products p ON od.product_id = p.product_id
 JOIN categories cat ON p.category_id = cat.category_id
-ORDER BY order_id DESC;
+ORDER BY order_id;
 
 SELECT *
 FROM order_overview;
 
 -- How has our customer base grown over the quarters?
--- Each fiscal quarter
 WITH company_totals_per_quarter AS (
 	WITH orders_per_quarter AS (
-		SELECT DISTINCT order_id, order_year, fiscal_quarter, customer_name
+		SELECT DISTINCT order_id, order_year, fiscal_quarter,
+			customer_name, country, continent
 		FROM order_overview
 		ORDER BY order_year, fiscal_quarter
 	)
-	SELECT order_year, fiscal_quarter, customer_name,
-		COUNT(order_id) AS total_orders
+	SELECT order_year, fiscal_quarter, customer_name, country,
+		continent, COUNT(order_id) AS total_orders
 	FROM orders_per_quarter
-	GROUP BY order_year, fiscal_quarter, customer_name
-	ORDER BY order_year, fiscal_quarter, customer_name
+	GROUP BY order_year, fiscal_quarter, customer_name, country, continent
+	ORDER BY order_year, fiscal_quarter, customer_name, country, continent
 )
 SELECT order_year, fiscal_quarter,
 	COUNT(*) AS total_customers
