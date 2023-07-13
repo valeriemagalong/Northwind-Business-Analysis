@@ -111,40 +111,65 @@ ORDER BY o.order_date;
 
 /*
  * 
- * Query for .csv raw data export
+ * Targeted Questions
  * 
  * */
 
-SELECT c.customer_id, c.company_name, c.country,
-	CASE 
-		WHEN c.country IN ('Canada', 'Mexico', 'USA') THEN 'North America'
-		WHEN c.country IN ('Argentina', 'Brazil', 'Venezuela') THEN 'South America'
-		ELSE 'Europe'
-	END AS continent,
-	o.order_id, EXTRACT(YEAR FROM o.order_date) AS order_year,
+-- Create view (order_overview) with all relevant data
+CREATE VIEW order_overview AS
+SELECT o.order_id, CAST(EXTRACT(YEAR FROM o.order_date) AS VARCHAR(255)) AS order_year,
 	CASE
 		WHEN EXTRACT(MONTH FROM o.order_date) IN (1, 2, 3) THEN 'Q1'
 		WHEN EXTRACT(MONTH FROM o.order_date) IN (4, 5, 6) THEN 'Q2'
 		WHEN EXTRACT(MONTH FROM o.order_date) IN (7, 8, 9) THEN 'Q3'
 		WHEN EXTRACT(MONTH FROM o.order_date) IN (10, 11, 12) THEN 'Q4'
 	END AS fiscal_quarter,
-	o.order_date, o.required_date, o.shipped_date, o.ship_name,
-	o.shipped_date - o.order_date AS lead_time,
+	c.customer_id, c.company_name AS customer_name, c.country,
+	CASE 
+		WHEN c.country IN ('Canada', 'Mexico', 'USA') THEN 'North America'
+		WHEN c.country IN ('Argentina', 'Brazil', 'Venezuela') THEN 'South America'
+		ELSE 'Europe'
+	END AS continent,
+	o.order_date, o.required_date, o.shipped_date, s.company_name AS shipper,
+	o.shipped_date - o.order_date AS actual_lead_time,
 	o.required_date - o.order_date AS requested_lead_time,
-	od.unit_price AS order_unit_price, od.quantity, od.discount,
+	p.product_id, p.product_name, 
+	p.unit_price AS product_unit_price, od.unit_price AS order_unit_price,
+	od.quantity, od.discount,
 	od.unit_price * od.quantity * (1 - od.discount) AS revenue,
-	p.product_id, p.product_name, p.reorder_level,
-	p.unit_price AS product_unit_price, p.product_cost,
+	p.product_cost, o.freight AS shipping_cost,
 	CASE 
 		WHEN od.unit_price = p.unit_price
 		THEN (od.unit_price * (1 - od.discount) - p.product_cost) * od.quantity
 		ELSE NULL
 	END AS gross_profit,
-	cat.category_name, cat.description
+	p.reorder_level, cat.category_name, cat.description
 FROM customers c
 JOIN orders o ON c.customer_id = o.customer_id
+JOIN shippers s ON o.ship_via = s.shipper_id 
 JOIN order_details od ON o.order_id = od.order_id
 JOIN products p ON od.product_id = p.product_id
 JOIN categories cat ON p.category_id = cat.category_id
-ORDER BY order_id;
+ORDER BY order_id DESC;
 
+SELECT *
+FROM order_overview;
+
+-- How has our customer base grown over the quarters?
+-- Each fiscal quarter
+WITH company_totals_per_quarter AS (
+	WITH orders_per_quarter AS (
+		SELECT DISTINCT order_id, order_year, fiscal_quarter, customer_name
+		FROM order_overview
+		ORDER BY order_year, fiscal_quarter
+	)
+	SELECT order_year, fiscal_quarter, customer_name,
+		COUNT(order_id) AS total_orders
+	FROM orders_per_quarter
+	GROUP BY order_year, fiscal_quarter, customer_name
+	ORDER BY order_year, fiscal_quarter, customer_name
+)
+SELECT order_year, fiscal_quarter,
+	COUNT(*) AS total_customers
+FROM company_totals_per_quarter
+GROUP BY order_year, fiscal_quarter;
