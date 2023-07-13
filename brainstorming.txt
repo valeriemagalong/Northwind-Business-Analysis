@@ -13,7 +13,7 @@ COMPANY INFO
 GOALS / QUESTIONS
 (1) Growth & Retention
     • How has our customer base grown over the quarters?
-        - Are their customers who have discontinued business?
+        - Are there customers who have discontinued business?
 (2) Profit
     • How has our company been performing across 7 quarters?
     • How can we maximize profit across customers and locations?
@@ -21,15 +21,14 @@ GOALS / QUESTIONS
         - What locations yield the highest profit? (Most valuable customers?)
         - What product categories yield the highest profit?
 (3) Efficiency
-    • How is our inventory management?
-        - Is the rate at which we reorder products aligned with demand?
-    • Are there items that we haven't been able to ship?
+    • Have we been able to ship out products before the customers' required date?
+        - Are there items that we haven't been able to ship?
 
 KPIS
 (1) New Customer Acquisition Rate
     • (# new cust acquired by end of qtr / total # cust. at start of qtr) * 100
 (2) Revenue (quantity * unit price * 1-discount); Product Demand
-(3) Lead Time (shipped date - order date) vs. Reorder Level
+(3) Expected Lead Time vs. Actual Lead Time
 
 TIME SCALE
 • Yearly report (July 1996 - June 1997, July 1997 - May 1998)
