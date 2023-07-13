@@ -27,8 +27,9 @@ GOALS / QUESTIONS
 KPIS
 (1) New Customer Acquisition Rate
     • (# new cust acquired by end of qtr / total # cust. at start of qtr) * 100
-(2) Revenue (quantity * unit price * 1-discount); Product Demand
-(3) Expected Lead Time vs. Actual Lead Time
+(2) Revenue (quantity * unit price * 1-discount
+(3) Net Profit
+(4) Expected Lead Time vs. Actual Lead Time
 
 TIME SCALE
 • Yearly report (July 1996 - June 1997, July 1997 - May 1998)
