@@ -177,3 +177,8 @@ FROM order_overview
 WHERE product_name ILIKE 'Côte de Blaye'
 	OR product_id = 38;
 
+-- What cities and countries are the top 5 purchasers of Cote de Blaye from?
+SELECT company_name, city, country, postal_code
+FROM customers
+WHERE customer_id IN ('SIMOB', 'QUICK', 'HANAR', 'GREAL', 'RATTC');
+
