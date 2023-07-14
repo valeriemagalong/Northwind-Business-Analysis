@@ -169,3 +169,11 @@ SELECT order_year, fiscal_quarter,
 	COUNT(*) AS total_customers
 FROM company_totals_per_quarter
 GROUP BY order_year, fiscal_quarter;
+
+
+-- Query all the orders of Cote de Blaye for further analysis in .xlsx file
+SELECT *
+FROM order_overview
+WHERE product_name ILIKE 'Côte de Blaye'
+	OR product_id = 38;
+
